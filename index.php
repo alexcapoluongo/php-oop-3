@@ -16,25 +16,26 @@ $croccantelle = new Food('Cibo','croccantelle', 3, 'carne mista ovina', false, 2
 $pupazzo = new Game('Gioco', 'pupazzo', 20, true);
 $woodhouse = new Bed('Cuccie', 'cuccia in legno', 50, false, '5x7');
 
-$alex = new User('Alex Capoluongo', 'alex@gmail.com', false, date("2023-08-14"), 'italy');
+$alex = new User('Alex Capoluongo', 'alex@gmail.com', false, date("2023-08-14"), 'Italy', 'Lombardia', 'via Lenin 4', 34040);
 try {
     $alex->addItemToCard($pupazzo);
     $alex->addItemToCard($woodhouse); 
     } catch (Exception $e) {
         var_dump($e->getMessage());
-        echo 'Alex, questo prodotto:' . '<br>' .  $woodhouse->printInfo() . '<br>' . 'non è disponibile <br>';
+        echo 'Alex, questo prodotto:' . '<br>' .  $woodhouse->name . '<br>' . 'non è disponibile <br>';
     }
 
 $alex->getTotal();
 $alex->getRegistered();
 $alex->insertCard();
 
-$frank = new User('Frank Poirot', 'ppp@gmail.com', true, date("2020-08-14"), 'france');
+$frank = new User('Frank Poirot', 'ppp@gmail.com', true, date("2020-08-14"), 'France', 'Corsica', 'rue D\'Avois 23', 3990);
+
 try {
     $frank->addItemToCard($woodhouse); 
-    } catch (Exception $e) {
-        echo 'Frank, questo prodotto: <br>' . $woodhouse->printInfo() . '<br>' . 'non è disponibile';
-    }
+} catch (Exception $e) {
+    echo 'Frank, questo prodotto: <br>' . $woodhouse->names . '<br>' . 'non è disponibile';
+}
 
 $frank->insertCard();
 
@@ -58,7 +59,7 @@ $frank->insertCard();
     ?></ul>
     <p><?php echo "il carrello totale è  di" . " " . $alex->getTotal()?></p>
     <p><?php echo $alex->insertCard() ?></p>
-    <p><?php echo $alex->printAddress() ?></p>
+    <p>La spesa da te acquistata verrà spedita al seguente indirizzo:  <?php echo $alex->printAddress() ?></p>
 
     <!-- test su frank -->
     <h3>Nel carrello di Frank ci sono: </h3>
@@ -69,6 +70,7 @@ $frank->insertCard();
     ?></ul>
     <p><?php echo "il carrello totale è  di" . " " . $frank->getTotal() . "€"?></p>
     <p><?php echo $frank->insertCard() ?></p>
+    <p>La spesa da te acquistata verrà spedita al seguente indirizzo:  <?php echo $frank->printAddress() ?></p>
 
 </body>
 </html>

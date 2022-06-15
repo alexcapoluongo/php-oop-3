@@ -9,17 +9,21 @@ class User {
     public $cart = [];
     public $registered = false;
 
-    function __construct($_name, $_email, $_registered, $_expire_date, $_nation)
+    function __construct($_name, $_email, $_registered, $_expire_date, $_nation, $_region, $_route, $_postalcode)
     {
         $this->name = $_name;
         $this->email = $_email;
         $this->registered = $_registered;
         $this->expire_date = $_expire_date;
         $this->nation = $_nation;
+        $this->region = $_region;
+        $this->route = $_route;
+        $this->postalcode = $_postalcode;
     }
+    
 
     public function printAddress() {
-        echo $this->nation;
+        echo $this->nation . ' ' . $this->route . ', ' . $this->postalcode;
     }
 
     public function addItemToCard($_product) {
@@ -29,7 +33,6 @@ class User {
             throw new Exception("This product is not available");
         }
     }
-
     
     public function getTotal() {
         $totalPrice = 0;
@@ -45,7 +48,7 @@ class User {
     }
 
     public function getRegistered() {
-        return $this->registered = true;
+        return $this->registered = true;   
     }
 
     public function insertCard() {
@@ -56,7 +59,6 @@ class User {
         } else {
             $confirm = 'La tua carta è scaduta, non potrai procedere per il pagamento';
         }
-
         return $confirm;
     }
 }
