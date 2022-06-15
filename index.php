@@ -12,23 +12,31 @@ require_once __DIR__ . "/Game.php";
 require_once __DIR__ . "/Bed.php";
 require_once __DIR__ . "/User.php";
 
-$croccantelle = new Food('Cibo','croccantelle', 3, 'carne mista ovina', 200);
-$pupazzo = new Game('Gioco', 'pupazzo', 20);
-$woodhouse = new Bed('Cuccie', 'cuccia in legno', 50, '5x7');
+$croccantelle = new Food('Cibo','croccantelle', 3, 'carne mista ovina', false, 200);
+$pupazzo = new Game('Gioco', 'pupazzo', 20, true);
+$woodhouse = new Bed('Cuccie', 'cuccia in legno', 50, false, '5x7');
 
 $alex = new User('Alex Capoluongo', 'alex@gmail.com', false, date("2023-08-14"), 'italy');
-$alex->addItemToCard($pupazzo);
-$alex->addItemToCard($woodhouse);
+try {
+    $alex->addItemToCard($pupazzo);
+    $alex->addItemToCard($woodhouse); 
+    } catch (Exception $e) {
+        var_dump($e->getMessage());
+        echo 'Alex, questo prodotto:' . '<br>' .  $woodhouse->printInfo() . '<br>' . 'non è disponibile <br>';
+    }
+
 $alex->getTotal();
 $alex->getRegistered();
 $alex->insertCard();
 
-$frank = new User('Frank Poirot', 'ppp@gmail.com', false, date("2020-08-14"), 'france');
-$frank->addItemToCard($woodhouse);
-$frank->addItemToCard($woodhouse);
-$frank->insertCard();
+$frank = new User('Frank Poirot', 'ppp@gmail.com', true, date("2020-08-14"), 'france');
+try {
+    $frank->addItemToCard($woodhouse); 
+    } catch (Exception $e) {
+        echo 'Frank, questo prodotto: <br>' . $woodhouse->printInfo() . '<br>' . 'non è disponibile';
+    }
 
-echo date('j F Y');
+$frank->insertCard();
 
 ?>
 
@@ -41,9 +49,7 @@ echo date('j F Y');
     <title>E-commerce</title>
 </head>
 <body>
-    <p><?php echo $croccantelle->printInfo() ?></p>
-    <p><?php echo $pupazzo->printInfo()?></p>
-    <p><?php echo $woodhouse->printInfo()?></p>
+
     <h3>Nel carrello di Alex ci sono: </h3>
     <ul><?php foreach($alex->cart as $item) 
             {

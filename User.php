@@ -23,7 +23,11 @@ class User {
     }
 
     public function addItemToCard($_product) {
-        $this->cart[] = $_product;
+        if($_product->available) {
+            $this->cart[] = $_product;
+        } else {
+            throw new Exception("This product is not available");
+        }
     }
 
     
