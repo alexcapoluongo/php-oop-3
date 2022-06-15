@@ -1,17 +1,25 @@
 <?php
+require_once __DIR__ . "/Address.php";
 class User {
+    use Address;
+
     public $name;
     public $email;
     public $expire_date;
     public $cart = [];
     public $registered = false;
 
-    function __construct($_name, $_email, $_registered, $_expire_date)
+    function __construct($_name, $_email, $_registered, $_expire_date, $_nation)
     {
         $this->name = $_name;
         $this->email = $_email;
         $this->registered = $_registered;
         $this->expire_date = $_expire_date;
+        $this->nation = $_nation;
+    }
+
+    public function printAddress() {
+        echo $this->nation;
     }
 
     public function addItemToCard($_product) {
