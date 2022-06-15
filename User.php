@@ -23,7 +23,7 @@ class User {
     
 
     public function printAddress() {
-        echo $this->nation . ' ' . $this->route . ', ' . $this->postalcode;
+        echo 'La spesa da te acquistata verrà spedita al seguente indirizzo: <i>' . $this->nation . ' ' . $this->route . ', ' . $this->postalcode . '</i>';
     }
 
     public function addItemToCard($_product) {
